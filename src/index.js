@@ -14,8 +14,8 @@
  *
  * Examples:
  * One-shot model:
- *  User: "Alexa, ask Space Geek for a space fact"
- *  Alexa: "Here's your space fact: ..."
+ *  User: "Alexa, ask Cricket Geek for a cricket fact"
+ *  Alexa: "Here's your cricket fact: ..."
  */
 
 /**
@@ -24,22 +24,33 @@
 var APP_ID = undefined; //replace with "amzn1.echo-sdk-ams.app.[your-unique-value-here]";
 
 /**
- * Array containing space facts.
+ * Array containing cricket facts.
  */
-var SPACE_FACTS = [
-    "A year on Mercury is just 88 days long.",
-    "Despite being farther from the Sun, Venus experiences higher temperatures than Mercury.",
-    "Venus rotates counter-clockwise, possibly because of a collision in the past with an asteroid.",
-    "On Mars, the Sun appears about half the size as it does on Earth.",
-    "Earth is the only planet not named after a god.",
-    "Jupiter has the shortest day of all the planets.",
-    "The Milky Way galaxy will collide with the Andromeda Galaxy in about 5 billion years.",
-    "The Sun contains 99.86% of the mass in the Solar System.",
-    "The Sun is an almost perfect sphere.",
-    "A total solar eclipse can happen once every 1 to 2 years. This makes them a rare event.",
-    "Saturn radiates two and a half times more energy into space than it receives from the sun.",
-    "The temperature inside the Sun can reach 15 million degrees Celsius.",
-    "The Moon is moving approximately 3.8 cm away from our planet every year."
+var CRICKET_FACTS = [
+    "Sri Lanka has a sole Test win against the Aussies till date.",
+    "Sanath Jayasuriya has more One Day International wickets than Shane Warne. ",
+    "The highest number of runs scored in an over is not 36. It is 77.",
+    "Adam Gilchrist holds the record for playing the most number of Tests straight after debut.",
+    "On 12th January 1964, Indian spinner Bapu Nadkarni bowled 21 consecutive maiden overs versus England at Chennai.",
+    "Chris Martin and B.S Chandrasekhar have taken more Test wickets in their career than the test runs they scored.",
+    "In a World Cup Match, chasing 335, Sunil Gavaskar scored an unbeaten 36 off 174 balls.",
+    "Jim Laker once took 19 wickets in a Test match.",
+    "Saurav Ganguly is the only Indian player to score a century in the knock out stages of a World Cup.",
+    "After Virat Kohli’s debut, India has chased down 300+ targets five times.",
+    "Mahela Jayawardene is the only batsman to have scored centuries in both the Semi-Final and Final of a World Cup.",
+    "The player with the most number of not outs in Test cricket is not Rahul Dravid, but Courtney Walsh.",
+    "Saurav Ganguly is the only player to win four consecutive Man of the Match awards in One Day Internationals.",
+    "Chris Gayle is the only batsman to hit a six off the first ball of a Test match",
+    "Abbas Ali Baig was the first Indian cricketer to be kissed during a Test match",
+    "Sunil Gavaskar was out off the first ball of a Test match thrice in his career",
+    "Jaisimha and Ravi Shastri are the only Indians to bat on all five days of a Test",
+    "The only cricketer to play Test cricket for India and England is Iftikhar Ali Khan Pataudi",
+    "Lala Amarnath is the only bowler to dismiss Don Bradman hit wicket in Test cricket",
+    "India won their second World Cup 28 years later in 2011 and remarkably won their second ever Test at Lord’s three years later in 2014.",
+    "India is the only country to win the 60-Over, 50-Over and 20-Over World Cup",
+    "Australia beat England by 45 runs in the first ever cricket Test as well as the Centenary Test in 1977",
+    "Richard Stokes is the only one person who witnessed Jim Laker and Anil Kumble taking 10 wickets in an innings"
+
 ];
 
 /**
@@ -48,46 +59,46 @@ var SPACE_FACTS = [
 var AlexaSkill = require('./AlexaSkill');
 
 /**
- * SpaceGeek is a child of AlexaSkill.
+ * CricketGeek is a child of AlexaSkill.
  * To read more about inheritance in JavaScript, see the link below.
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript#Inheritance
  */
-var SpaceGeek = function () {
+var CricketGeek = function () {
     AlexaSkill.call(this, APP_ID);
 };
 
 // Extend AlexaSkill
-SpaceGeek.prototype = Object.create(AlexaSkill.prototype);
-SpaceGeek.prototype.constructor = SpaceGeek;
+CricketGeek.prototype = Object.create(AlexaSkill.prototype);
+CricketGeek.prototype.constructor = CricketGeek;
 
-SpaceGeek.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-    console.log("SpaceGeek onSessionStarted requestId: " + sessionStartedRequest.requestId
+CricketGeek.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
+    console.log("CricketGeek onSessionStarted requestId: " + sessionStartedRequest.requestId
         + ", sessionId: " + session.sessionId);
     // any initialization logic goes here
 };
 
-SpaceGeek.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    console.log("SpaceGeek onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
+CricketGeek.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
+    console.log("CricketGeek onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
     handleNewFactRequest(response);
 };
 
 /**
  * Overridden to show that a subclass can override this function to teardown session state.
  */
-SpaceGeek.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-    console.log("SpaceGeek onSessionEnded requestId: " + sessionEndedRequest.requestId
+CricketGeek.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
+    console.log("CricketGeek onSessionEnded requestId: " + sessionEndedRequest.requestId
         + ", sessionId: " + session.sessionId);
     // any cleanup logic goes here
 };
 
-SpaceGeek.prototype.intentHandlers = {
+CricketGeek.prototype.intentHandlers = {
     "GetNewFactIntent": function (intent, session, response) {
         handleNewFactRequest(response);
     },
 
     "AMAZON.HelpIntent": function (intent, session, response) {
-        response.ask("You can ask Space Geek tell me a space fact, or, you can say exit... What can I help you with?", "What can I help you with?");
+        response.ask("You can ask Cricket Geek tell me a cricket fact, or, you can say exit... What can I help you with?", "What can I help you with?");
     },
 
     "AMAZON.StopIntent": function (intent, session, response) {
@@ -105,20 +116,19 @@ SpaceGeek.prototype.intentHandlers = {
  * Gets a random new fact from the list and returns to the user.
  */
 function handleNewFactRequest(response) {
-    // Get a random space fact from the space facts list
-    var factIndex = Math.floor(Math.random() * SPACE_FACTS.length);
-    var fact = SPACE_FACTS[factIndex];
+    // Get a random cricket fact from the cricket facts list
+    var factIndex = Math.floor(Math.random() * CRICKET_FACTS.length);
+    var fact = CRICKET_FACTS[factIndex];
 
     // Create speech output
-    var speechOutput = "Here's your space fact: " + fact;
+    var speechOutput = "Here's your cricket fact: " + fact;
 
-    response.tellWithCard(speechOutput, "SpaceGeek", speechOutput);
+    response.tellWithCard(speechOutput, "CricketGeek", speechOutput);
 }
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
-    // Create an instance of the SpaceGeek skill.
-    var spaceGeek = new SpaceGeek();
-    spaceGeek.execute(event, context);
+    // Create an instance of the CricketGeek skill.
+    var cricketGeek = new CricketGeek();
+    cricketGeek.execute(event, context);
 };
-
